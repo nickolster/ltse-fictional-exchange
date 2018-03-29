@@ -31,6 +31,26 @@ public class Trades {
                     String[] record = line.split(splitBy);
                     records.add(record);
 
+//                    for(int index = 1; index < record.length; index++){
+//                        if(record[index].isEmpty()) {
+//                            rejectedRecords.add(record);
+//                            System.out.println("rejected !!!!");
+//                        }
+//                    }
+//
+//                    if(record[3].equalsIgnoreCase("2"))
+//                        rejectedRecords.add(record);
+
+                    //Condition 1 and 2 are met here
+                    if(!record[1].isEmpty() && !record[2].isEmpty() && !record[3].isEmpty() && !record[4].isEmpty()
+                            && !record[5].isEmpty() && !record[6].isEmpty() && !record[record.length-1].isEmpty()
+                            && record[3].equalsIgnoreCase("K")){
+                        acceptedRecords.add(record);
+                    }else {
+                        rejectedRecords.add(record);
+                    }
+
+
                 }
 
             } catch (IOException e) {
@@ -38,7 +58,7 @@ public class Trades {
             }
             System.out.println("reading done");
 
-            writeToFile(records);
+            writeToFile(rejectedRecords);
 
 
         }
@@ -46,7 +66,7 @@ public class Trades {
     //Write to a file
     public static void writeToFile(List<String[]> records) {
 
-        String writeFile = "./allRecords.csv";
+        String writeFile = "./rejectedRecords.csv";
 
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(writeFile))) {
